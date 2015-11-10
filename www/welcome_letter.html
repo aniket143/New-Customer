@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">  
+ <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />  
+ <link rel="stylesheet" href="css/themes/my-custom-theme.css" />
+<script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/jquery.mobile-1.4.5.js"></script>  
+ <script src="js/jquery-1.7.min.js"></script>  
+<script type="text/javascript"> 
+function get6()
+	{
+var queryString = new Array();
+
+          if (window.location.search.split('?').length > 1) {
+                var params = window.location.search.split('?')[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var key = params[i].split('=')[0];
+                    var value = decodeURIComponent(params[i].split('=')[1]);
+                    queryString[key] = value;
+                }
+            }
+
+var myArray=queryString[key].split('|');
+	window.location.href="shop_loc.html?member="+myArray[0]+"|"+myArray[1]+"|"+myArray[2];
+	}   
+
+function getname1()
+  {
+  var queryString = new Array();
+
+          if (window.location.search.split('?').length > 1) {
+                var params = window.location.search.split('?')[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var key = params[i].split('=')[0];
+                    var value = decodeURIComponent(params[i].split('=')[1]);
+                    queryString[key] = value;
+                }
+            }
+            var myArray=queryString[key].split('|');
+document.getElementById('name1').innerHTML=myArray[2];
+}
+    function getid()
+{
+window.location.href="home.html?member="+localStorage.getItem("shopcode")+'|'+localStorage.getItem("shopname");
+}
+function getback()
+{
+window.location.href="my_account.html?member="+localStorage.getItem("shopcode")+'|'+localStorage.getItem("shopname")+'|'+localStorage.getItem("shopid");
+}
+
+$(function() {
+     $(document).ready(function() {
+      var queryString = new Array();
+
+          if (window.location.search.split('?').length > 1) {
+                var params = window.location.search.split('?')[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var key = params[i].split('=')[0];
+                    var value = decodeURIComponent(params[i].split('=')[1]);
+                    queryString[key] = value;
+                }
+            }
+
+var myArray=queryString[key].split('|');
+            var name1 = myArray[2];            
+         $.ajax({
+         
+  url: "http://shopnearn.co.in/mobileapp/letter.php",
+ //  url: "http://shopnearn.co.in/mobileapp/qualify.php",
+           type     : 'GET',
+             data: ({name: name1}),
+                  cache: false,
+                  dataType: "text",
+                  success: onSuccess
+                });});
+    $("#resultLog").ajaxError(function(event, request, settings, exception) {
+          $("#resultLog").html("Error Calling: " + settings.url + "<br />HTTP Code: " + request.status);
+        });
+function onSuccess(data)
+        {
+       $("#resultLog").html("Result: " + data);
+document.getElementById('name').innerHTML=data;
+        }
+  });
+  function sponser()
+	{
+	window.location.href="sponser.html?memember="+localStorage.getItem("shopcode")+'|'+localStorage.getItem("shopname")+'|'+localStorage.getItem("shopid");
+
+	} 
+</script>
+</head>
+<body>
+<!--......client Registration Form........-->
+<div data-role="page" id="password">
+<div data-role="panel" id="overlayPanel1" data-display="overlay" data-rel="back"> 
+    <ul data-role="listview">
+     <li data-icon="location"><a onclick="get6();" style= font-size:0.9em;>Shop Locator</a></li> 
+  <li data-icon="user"><a href="profile.html?reload" style= font-size:0.9em; data-rel="external" rel="external">Company Client Profile</a></li>
+  <li data-icon="user"><a onclick="sponser();" style= font-size:0.9em; data-rel="external" rel="external">Sales Promoter's Details</a></li>
+  <li data-icon="user"><a href="shop_about_us.html?reload" style= font-size:0.9em; data-rel="external" rel="external">About Us</a></li>
+     <li data-icon="info"><a href="shop_faq.html?reload" style= font-size:0.9em; data-rel="external" rel="external">FAQ</a></li>
+  <li data-icon="phone"><a href="shop_contact_us.html?reload" style= font-size:0.9em; data-rel="external" rel="external">Contact Us</a></li>
+  <li data-icon="power"><a href="index.html?reload" style= font-size:0.9em; data-rel="external" rel="external" >Logout</a></li>
+</ul>  
+</div> 
+
+   <div data-role="header" data-position="fixed">
+    <body onload="getname1();">
+       <h3 style="text-align: center"><div id="name1"></div></h3>
+           <a data-rel="external" rel="external"  role="button" data-role="button" data-mini="true" href="#overlayPanel1" class="ui-btn-left ui-btn-corner-all ui-btn  ui-icon-bars ui-btn-icon-notext ui-shadow" title="Home" data-form="ui-icon" data-theme="a" > 
+          </a>         
+          <a onclick="getid();" class="ui-btn ui-corner-all ui-icon-home ui-btn-icon-notext">home</a>
+           </body> 
+           </div>
+          
+             <div  style="background-color:white;text-align:center;" >
+          <br><img src="logo.png" class="ui-responsive" style="width:40%;height:40%;"></img><hr>
+       <center>   
+<p><font size=2>Ambewadi Marwadi Premises No.1 , Room no. 2, kalachowki , Mumbai -400033
+ </font><br><font size=2><b>Contact No.</b>:+9221469472<br>
+<b>E-mail ID</b>:&nbsp;<a>info@shopnearn.co.in,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;support@shopnearn.co.in</a>
+<br><b>Website</b> :&nbsp;<a>www.shopnearn.co.in</a></font></center>
+<hr>
+
+
+ <div  style="color:white;background-color:rgb(65,146,157);height:5%;" ><strong><h4> <b><center> Welcome Letter </center></b></h4></strong></div>
+
+
+ <b> <div style="margin-left:15px;margin-right:15px;margin-top:5px;text-align:justify">
+  <font size=2>  <div  id="name"></div>
+<p> 
+
+We are heartily welcome you to GURUPRASAD Multitrade Marketing Pvt. Ltd. We are providing you most efficient and trusted business in International Marketing Sector to earn maximum benefits. It is always a pleasure to help people along this new and exciting path. There has never been a more challenging and exciting time to be in the Marketing Sector. Since we launched operations in 2014 we've constantly watched the industry grown day by day. What started out as a market for professionals is now attracting all over the world and of all experience levels.
+
+</p>
+<p> Our motto is to provide a perfect growth to your income for at all different levels that will allow you to “Earn best Income” from the Marketing Sector. Finally we are here to look after your money and provide you with a system to make unlimited earning potential.</p>
+<p> We assure you that we will be with you every moment. We promise our company is one of the best in the Industry. If you stick to the company you will become a great gainer...</p>
+<P> We thank you, and look forward to the same co-operation and confidence in us as regards our future business relations.</P>
+</div></b>
+<p>Yours Sincerely,</p>
+<p>Admin In Charge
+</p>
+<br><center><p>(This is an auto-generated online receipt that does not require signatures)</p></center></font>
+</div>
+           
+           <div align="right">
+ <a onclick="getback();" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon" >Back</a>
+  </div>
+  </div>
+  </div> 
+</body>
+</html>
