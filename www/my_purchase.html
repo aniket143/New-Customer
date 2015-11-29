@@ -116,6 +116,45 @@ var myArray=queryString[key].split('|');
 	window.location.href="sponser.html?memember="+localStorage.getItem("shopcode")+'|'+localStorage.getItem("shopname")+'|'+localStorage.getItem("shopid");
 
 	} 
+	
+	 $(function() {
+$("#submit").click(function() {
+      var queryString = new Array();
+
+          if (window.location.search.split('?').length > 1) {
+                var params = window.location.search.split('?')[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var key = params[i].split('=')[0];
+                    var value = decodeURIComponent(params[i].split('=')[1]);
+                    queryString[key] = value;
+                }
+            }
+var myArray=queryString[key].split('|');
+               document.getElementById('name1').innerHTML =myArray[1];
+            var name1 = myArray[2];      
+            var to = document.getElementById('to').value;          
+            var from = document.getElementById('from').value;  
+
+         $.ajax({
+     url: "http://shopnearn.co.in/mobileapp/my_purchase.php",
+    // url: "view_tbill.php",
+
+           type     : 'GET',
+             data: ({name: name1,to:to,from:from}),
+                  cache: false,
+                  dataType: "text",
+                  success: onSuccess
+                });});
+    $("#resultLog").ajaxError(function(event, request, settings, exception) {
+          $("#resultLog").html("Error Calling: " + settings.url + "<br />HTTP Code: " + request.status);
+        });
+function onSuccess(data)
+        {
+        //alert(data);
+      $("#resultLog").html("Result: " + data);
+document.getElementById('myTable').innerHTML=data;
+        }
+  });
 </script>
   </head>
 <body id="callAjax1">
@@ -141,7 +180,19 @@ var myArray=queryString[key].split('|');
           </a>         
           <a onclick="getid();" class="ui-btn ui-corner-all ui-icon-home ui-btn-icon-notext" >home</a>
 </body>
-            </div>   
+            </div>
+            <div style="display:none">
+            <select name="criteria" id="criteria" class="form-control"  required>
+				 <option value="date1" selected>Date to date</option>
+			</select>
+			</div>
+            <div class="form-group" id="datee1" style="display:block">
+	     <label class="col-sm-2 control-label">Select Date:</label>
+     <input type="date"  placeholder="From" id="from" name="from"/>      
+	 <input type="date"  placeholder="To" id="to" name="to"/>      
+	 </div>
+	 
+	        <button  type="submit" class="btn btn-primary"   id="submit"  name="submit" >Search </button>   
 
 <div id="myTable" style="background-color:white;"> 
   </div>
